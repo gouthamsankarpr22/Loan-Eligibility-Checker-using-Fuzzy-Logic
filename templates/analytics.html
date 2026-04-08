@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics - Fuzzy Loan Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="sidebar">
+    <h3>Loan Dashboard</h3>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('analytics') }}">Analytics</a>
+    {% if session.get('role') == 'admin' %}
+        <a href="{{ url_for('users_page') }}">Users</a>
+    {% endif %}
+    <a href="{{ url_for('settings_page') }}">Settings</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+
+<div class="main">
+    <h2>Approval Metrics</h2>
+
+    <canvas id="approvalChart" width="400" height="200"></canvas>
+
+    <script>
+        const ctx = document.getElementById('approvalChart').getContext('2d');
+
+        const data = {
+            labels: {{ analytics_data.labels|safe }},
+            datasets: [{
+                label: 'Approval Score',
+                data: {{ analytics_data.scores|safe }},
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    </script>
+</div>
+</body>
+</html>

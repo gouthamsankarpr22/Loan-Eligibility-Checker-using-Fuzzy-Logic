@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Fuzzy Loan Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Loan Dashboard</h3>
+        <a href="{{ url_for('home') }}" class="{% if active_page=='home' %}active{% endif %}">Home</a>
+        <a href="{{ url_for('analytics') }}" class="{% if active_page=='analytics' %}active{% endif %}">Analytics</a>
+        {% if session.get('role') == 'admin' %}
+            <a href="{{ url_for('users_page') }}" class="{% if active_page=='users' %}active{% endif %}">Users</a>
+        {% endif %}
+        <a href="{{ url_for('settings_page') }}" class="{% if active_page=='settings' %}active{% endif %}">Settings</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

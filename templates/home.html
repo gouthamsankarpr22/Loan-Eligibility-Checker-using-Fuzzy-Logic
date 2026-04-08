@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - Fuzzy Loan Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+<div class="sidebar">
+    <h3>Loan Dashboard</h3>
+    <a href="{{ url_for('home') }}" class="{% if active_page=='home' %}active{% endif %}">Home</a>
+    <a href="{{ url_for('analytics') }}" class="{% if active_page=='analytics' %}active{% endif %}">Analytics</a>
+    {% if session.get('role') == 'admin' %}
+        <a href="{{ url_for('users_page') }}" class="{% if active_page=='users' %}active{% endif %}">Users</a>
+    {% endif %}
+    <a href="{{ url_for('settings_page') }}" class="{% if active_page=='settings' %}active{% endif %}">Settings</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+
+<div class="card modern-card">
+
+    <h2 class="title">Loan Eligibility Checker</h2>
+
+    <form id="loanForm">
+
+        <div class="slider-group">
+            <label>💰 Income: <span id="income_val">50000</span></label>
+            <input type="range" id="income" min="0" max="100000" step="1000" value="50000">
+        </div>
+
+        <div class="slider-group">
+            <label>📊 Credit Score: <span id="credit_val">700</span></label>
+            <input type="range" id="credit_score" min="300" max="850" value="700">
+        </div>
+
+        <div class="slider-group">
+            <label>📉 Debt Ratio: <span id="debt_val">0.3</span></label>
+            <input type="range" id="debt_ratio" min="0" max="1" step="0.01" value="0.3">
+        </div>
+
+        <div class="slider-group">
+            <label>💼 Employment (years): <span id="emp_val">5</span></label>
+            <input type="range" id="employment" min="0" max="40" value="5">
+        </div>
+
+        <div class="slider-group">
+            <label>🏦 Existing Loans: <span id="loan_val">1</span></label>
+            <input type="range" id="existing_loans" min="0" max="10" value="1">
+        </div>
+
+        <div class="slider-group">
+            <label>🎂 Age: <span id="age_val">30</span></label>
+            <input type="range" id="age" min="18" max="70" value="30">
+        </div>
+
+        <button type="submit" class="btn-modern">Check Approval</button>
+    </form>
+
+    <!-- Gauge Chart -->
+    <canvas id="approvalGauge" width="250" height="250"></canvas>
+
+    <!-- Dynamic Fuzzy Graph -->
+    <canvas id="fuzzyGraph" width="400" height="200"></canvas>
+
+    <div id="result" class="result-modern"></div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="btn-modern" style="margin-top:15px">
+        <i class="fas fa-moon"></i> Toggle Dark Mode
+    </button>
+
+</div>
+
+    {% if session.get('role') == 'admin' %}
+    <h3 class="mt-4">Recent Loan Checks</h3>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Income</th>
+                <th>Credit Score</th>
+                <th>Debt Ratio</th>
+                <th>Approval Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in loans %}
+            <tr>
+                <td>{{ loan['user_name'] }}</td>
+                <td>{{ loan['income'] }}</td>
+                <td>{{ loan['credit_score'] }}</td>
+                <td>{{ loan['debt_ratio'] }}</td>
+                <td>{{ loan['approval']|round(2) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script>
+    checkApproval('loanForm','result');
+</script>
+</body>
+</html>

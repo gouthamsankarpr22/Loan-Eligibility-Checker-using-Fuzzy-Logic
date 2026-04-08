@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users - Fuzzy Loan Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Optional: adjust column widths */
+        table.table th, table.table td {
+            padding: 12px 15px; /* increase padding */
+        }
+        table.table th:nth-child(3),
+        table.table td:nth-child(3) {
+            width: 300px; /* give more space to Email */
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <h3>Loan Dashboard</h3>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('analytics') }}">Analytics</a>
+    <a href="{{ url_for('users_page') }}">Users</a>
+    <a href="{{ url_for('settings_page') }}">Settings</a>
+</div>
+
+<div class="main">
+    <h2>Registered Users</h2>
+    <div class="card">
+        {% if users %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user['id'] }}</td>
+                    <td>{{ user['name'] }}</td>
+                    <td>{{ user['email'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No users found.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script>
+    loadUsers(); // optional if you want dynamic loading
+</script>
+</body>
+</html>

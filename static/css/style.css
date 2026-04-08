@@ -1,0 +1,250 @@
+/* ================= Common dashboard styling ================= */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f4f6f9;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* ================= Modern Card ================= */
+.modern-card {
+    max-width: 600px;
+    margin: 20px auto;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* Title */
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ================= Slider group ================= */
+.slider-group {
+    margin-bottom: 15px;
+}
+
+.slider-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Sliders */
+input[type="range"] {
+    width: 100%;
+    accent-color: #1ab394;
+}
+
+/* ================= Buttons ================= */
+.btn-modern {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #1ab394, #18a689);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-modern:hover {
+    transform: scale(1.03);
+}
+
+/* ================= Result box ================= */
+.result-modern {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f4f6f9;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Animation */
+.animate {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* Loading */
+.loading {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {opacity: 0.5;}
+    50% {opacity: 1;}
+    100% {opacity: 0.5;}
+}
+
+/* ================= Grid layout for forms ================= */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.form-group input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Full width button in grid */
+.full-width {
+    grid-column: span 2;
+}
+
+/* ================= Sidebar ================= */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    transition: background 0.3s;
+}
+
+.sidebar h3 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    color: #ecf0f1;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+.sidebar a:hover {
+    background-color: #34495e;
+    color: #fff;
+}
+
+.sidebar a.active {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+/* ================= Main content ================= */
+.main {
+    margin-left: 260px; /* sidebar width + padding */
+    padding: 30px;
+}
+
+/* ================= Cards ================= */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* ================= Inputs & buttons ================= */
+input, button {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #1ab394;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    background-color: #18a689;
+}
+
+/* ================= Result text ================= */
+#result {
+    font-size: 18px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* ================= Gauge & Chart ================= */
+canvas {
+    display: block;
+    margin: 20px auto;
+}
+
+/* ================= Dark mode ================= */
+body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .modern-card,
+body.dark-mode .card,
+body.dark-mode .result-box {
+    background: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode input,
+body.dark-mode button,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #2c2c2c;
+    color: #fff;
+    border-color: #555;
+}
+
+body.dark-mode .sidebar {
+    background-color: #1a1a1a;
+}
+
+body.dark-mode .sidebar a:hover {
+    background-color: #333;
+}
+
+body.dark-mode .btn-modern {
+    background: linear-gradient(45deg, #18a689, #1ab394);
+}
